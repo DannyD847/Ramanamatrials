@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books PDF Viewer</title>
+    <link rel="shortcut icon" type="x-icon" href="https://cdn.glitch.global/176d997d-70b7-475a-a52e-5badb3883d92/Ramana_IMG.webp?v=1717296161086">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            color: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .navbar {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background-color: Blue; /* Initial color is red */
+            padding: 10px;
+            border-radius: 15px; /* Added for curved sides */
+            transition: background-color 0.3s, width 0.3s; /* Smooth transition */
+            width: 50px; /* Initial width is small */
+            height: auto; /* Auto height */
+            position: fixed;
+            left: 20px; /* Position from the left */
+            top: 20px; /* Position from the top */
+        }
+        .navbar:hover {
+            background-color: Gray; /* Color when hovered */
+        }
+        .navbar a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 15px; /* Added for curved sides */
+            transition: background-color 0.3s; /* Smooth transition */
+            display: none; /* Hidden initially */
+        }
+        .navbar.expanded {
+            width: 200px; /* Expanded width */
+        }
+        .navbar.expanded a {
+            display: block; /* Show links when expanded */
+        }
+        .menu-icon {
+            font-size: 30px;
+            cursor: pointer;
+            color: white;
+        }
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .dropdown-container {
+            margin-bottom: 20px;
+        }
+        select {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #0000ff;
+            color: #fff;
+            cursor: pointer;
+        }
+        select option {
+            background-color: #fff;
+            color: #000;
+        }
+        #pdfContainer {
+            width: 80%;
+            height: 80vh;
+            display: none;
+            position: relative;
+            background-color: #000;
+            z-index: 1000;
+        }
+        #pdfFrame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .closebtn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function toggleMenu() {
+            var navbar = document.getElementById('navbar');
+            navbar.classList.toggle('expanded');
+        }
+        function loadPDF() {
+            const pdfUrl = document.getElementById('drivePdfSelect').value;
+            if (pdfUrl) {
+                const pdfContainer = document.getElementById('pdfContainer');
+                const pdfFrame = document.getElementById('pdfFrame');
+                pdfFrame.src = pdfUrl;
+                pdfContainer.style.display = 'block';
+            }
+        }
+
+        function closePDF() {
+            const pdfContainer = document.getElementById('pdfContainer');
+            pdfContainer.style.display = 'none';
+            const pdfFrame = document.getElementById('pdfFrame');
+            pdfFrame.src = "about:blank"; // Set to blank to avoid error
+        }
+    </script>
+</head>
+<body>
+    <div class="navbar" id="navbar">
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        <div class="nav-links" id="nav-links">
+            <a href="Home.html">Home</a>
+            <a href="English_PDF.html">English</a>
+            <a href="Telugu_PDF.html">Telugu</a>
+        </div>
+    </div>
+
+    <h1>Select a PDF</h1>
+    <div class="dropdown-container">
+        <select id="drivePdfSelect" onchange="loadPDF()">
+            <option value="">--Select a PDF--</option>
+            <option value="https://drive.google.com/file/d/1EhlrU_Z1H2Mh5omaUETcacnQfNJOqhki/preview?usp=sharing">Talks</option>
+            <option value="https://drive.google.com/file/d/1EkVNQiP5-7JWbFFk5SYbtaxQ8ROjh_p5/preview?usp=sharing">Be As You Are</option>
+            <option value="https://drive.google.com/file/d/1EpWUlG2NyN1aa92uWtVI5XyLX-TdMpMc/preview?usp=sharing">Day By Day With Bhagvan</option>
+            <option value="https://drive.google.com/file/d/1F2LEWjaE7oxuuZNn9XFud4JSkmZndOQA/preview?usp=sharing">Ramana Periya Puranam</option>
+            <option value="https://drive.google.com/file/d/1F2V2O8VjTVzb6mvXkTVCR5XRk6q5231E/preview?usp=sharing">Ramana Maharshi And The Path Of Self-Knowledge</option>
+            <option value="https://drive.google.com/file/d/1F47R53SmJ1CXPkz6xwHJPrnfk2aMq9Yb/preview?usp=sharing">Gem From Bhagavan</option>
+            <option value="https://drive.google.com/file/d/1F7rXI9CvRwDt_RiO22rOHCPg_-C_gO-M/preview?usp=sharing">Face To Face With Sri Ramana Maharshi</option>
+        </select>
+    </div>
+    
+    <div id="pdfContainer">
+        <span class="closebtn" onclick="closePDF()">&times;</span>
+        <iframe id="pdfFrame" src="about:blank" title="PDF Frame"></iframe>
+    </div>
+  <footer>
+        &copy; 2024 Mukti Materials. All rights reserved.
+    </footer>
+</body>
+</html>
